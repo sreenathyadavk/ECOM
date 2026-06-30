@@ -10,12 +10,20 @@ import { FileX } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
+import { headers } from "next/headers";
 
 const OrdersPage = async () => {
   let userId = null;
   try {
-    const pubKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
-    if (pubKey && pubKey !== "pk_test_c2VsZWN0ZWQtZ2xvd3dvcm0tNzIuY2xlcmsuYWNjb3VudHMuZGV2JA") {
+    const headerList = await headers();
+    const host = headerList.get("host") || "";
+    const isLocalhost = host.includes("localhost") || host.includes("127.0.0.1") || host.includes("192.168.");
+    const pubKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || "";
+    const isDevKey = pubKey.startsWith("pk_test");
+    
+    const shouldRunClerk = pubKey && !(isDevKey && !isLocalhost);
+
+    if (shouldRunClerk) {
       const authResult = await auth();
       userId = authResult?.userId;
     }

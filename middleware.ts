@@ -9,8 +9,13 @@ import { clerkMiddleware } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
 export default async function middleware(request: any, event: any) {
-  const pubKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
-  if (!pubKey || pubKey === "pk_test_c2VsZWN0ZWQtZ2xvd3dvcm0tNzIuY2xlcmsuYWNjb3VudHMuZGV2JA") {
+  const pubKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || "";
+  const host = request.headers.get("host") || "";
+  const isLocalhost = host.includes("localhost") || host.includes("127.0.0.1") || host.includes("192.168.");
+  
+  const isDevKey = pubKey.startsWith("pk_test");
+  
+  if (isDevKey && !isLocalhost) {
     return NextResponse.next();
   }
   return clerkMiddleware()(request, event);

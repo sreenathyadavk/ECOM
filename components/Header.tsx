@@ -9,6 +9,7 @@ import SignIn from "./SignIn";
 import MobileMenu from "./MobileMenu";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { ClerkLoaded, SignedIn, UserButton } from "@clerk/nextjs";
+import { headers } from "next/headers";
 import Link from "next/link";
 import { Logs } from "lucide-react";
 import { getMyOrders } from "@/sanity/queries";
@@ -19,8 +20,16 @@ const Header = async () => {
   let orders = null;
 
   try {
-    const pubKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
-    if (pubKey && pubKey !== "pk_test_c2VsZWN0ZWQtZ2xvd3dvcm0tNzIuY2xlcmsuYWNjb3VudHMuZGV2JA") {
+    const headerList = await headers();
+    const host = headerList.get("host") || "";
+    const isLocalhost = host.includes("localhost") || host.includes("127.0.0.1") || host.includes("192.168.");
+    const pubKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || "";
+    const isDevKey = pubKey.startsWith("pk_test");
+    
+    // Only run Clerk if we have a key AND it's not a development key on a public server
+    const shouldRunClerk = pubKey && !(isDevKey && !isLocalhost);
+
+    if (shouldRunClerk) {
       user = await currentUser();
       const authResult = await auth();
       userId = authResult?.userId;
@@ -58,12 +67,18 @@ const Header = async () => {
             </Link>
           )}
 
-          <ClerkLoaded>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-            {!user && <SignIn />}
-          </ClerkLoaded>
+          {shouldRunClerk ? (
+            <ClerkLoaded>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
+              {!user && <SignIn />}
+            </ClerkLoaded>
+          ) : (
+            <div className="text-sm font-medium text-gray-500 bg-gray-100 px-3 py-1.5 rounded-full select-none">
+              Demo Mode
+            </div>
+          )}
         </div>
       </Container>
     </header>
