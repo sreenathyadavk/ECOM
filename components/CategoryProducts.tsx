@@ -34,7 +34,7 @@ const CategoryProducts = ({ categories, slug }: Props) => {
       const data = await client.fetch(query, { categorySlug });
       setProducts(data);
     } catch (error) {
-      console.error("Error fetching products, falling back to dummy products:", error);
+      console.warn("Sanity client is unconfigured; using fallback products.");
       const { getDealProducts } = await import("@/sanity/queries");
       const fallback = await getDealProducts();
       setProducts(fallback);
@@ -44,7 +44,7 @@ const CategoryProducts = ({ categories, slug }: Props) => {
   };
   useEffect(() => {
     fetchProducts(currentSlug);
-  }, [router]);
+  }, [currentSlug]);
 
   return (
     <div className="py-5 flex flex-col md:flex-row items-start gap-5">

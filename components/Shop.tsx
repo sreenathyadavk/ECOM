@@ -56,7 +56,7 @@ const Shop = ({ categories, brands }: Props) => {
       );
       setProducts(data);
     } catch (error) {
-      console.log("Shop product fetching Error, falling back to dummy products:", error);
+      console.warn("Sanity client is unconfigured; using fallback products.");
       const { getDealProducts } = await import("@/sanity/queries");
       const fallback = await getDealProducts();
       setProducts(fallback);
