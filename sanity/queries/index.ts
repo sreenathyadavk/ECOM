@@ -54,18 +54,18 @@ const DUMMY_PRODUCTS = [
 ];
 
 const DUMMY_CATEGORIES = [
-  { _id: "c1", name: "Electronics", productCount: 20 },
-  { _id: "c2", name: "Laptops", productCount: 5 },
-  { _id: "c3", name: "Headphones", productCount: 15 },
-  { _id: "c4", name: "Furniture", productCount: 8 },
-  { _id: "c5", name: "Appliances", productCount: 12 },
+  { _id: "c1", title: "Electronics", slug: { current: "electronics" }, image: "https://picsum.photos/80/80", productCount: 20 },
+  { _id: "c2", title: "Laptops", slug: { current: "laptops" }, image: "https://picsum.photos/80/80", productCount: 5 },
+  { _id: "c3", title: "Headphones", slug: { current: "headphones" }, image: "https://picsum.photos/80/80", productCount: 15 },
+  { _id: "c4", title: "Furniture", slug: { current: "furniture" }, image: "https://picsum.photos/80/80", productCount: 8 },
+  { _id: "c5", title: "Appliances", slug: { current: "appliances" }, image: "https://picsum.photos/80/80", productCount: 12 },
 ];
 
 const DUMMY_BRANDS = [
-  { _id: "b1", title: "Apple" },
-  { _id: "b2", title: "Sony" },
-  { _id: "b3", title: "Herman Miller" },
-  { _id: "b4", title: "Dyson" },
+  { _id: "b1", title: "Apple", slug: { current: "apple" }, image: "https://picsum.photos/100/60" },
+  { _id: "b2", title: "Sony", slug: { current: "sony" }, image: "https://picsum.photos/100/60" },
+  { _id: "b3", title: "Herman Miller", slug: { current: "herman-miller" }, image: "https://picsum.photos/100/60" },
+  { _id: "b4", title: "Dyson", slug: { current: "dyson" }, image: "https://picsum.photos/100/60" },
 ];
 
 export const getCategories = async (quantity?: number) => DUMMY_CATEGORIES;
@@ -73,7 +73,10 @@ export const getAllBrands = async () => DUMMY_BRANDS;
 export const getLatestBlogs = async () => [];
 export const getDealProducts = async () => DUMMY_PRODUCTS;
 export const getProductBySlug = async (slug: string) => DUMMY_PRODUCTS.find(p => p.slug.current === slug) || null;
-export const getBrand = async (slug: string) => DUMMY_PRODUCTS.find(p => p.slug.current === slug) || null;
+export const getBrand = async (slug: string) => {
+  const match = DUMMY_PRODUCTS.find(p => p.slug.current === slug);
+  return match ? [{ brandName: match.brand.title }] : null;
+};
 export const getMyOrders = async (userId: string) => [];
 export const getAllBlogs = async (quantity: number) => [];
 export const getSingleBlog = async (slug: string) => null;
