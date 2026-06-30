@@ -152,3 +152,8 @@ body {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+/* Hide Clerk floating components (like the temporary API key prompt) */
+#clerk-components {
+  display: none !important;
+}
