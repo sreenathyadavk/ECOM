@@ -54,11 +54,11 @@ const DUMMY_PRODUCTS = [
 ];
 
 const DUMMY_CATEGORIES = [
-  { _id: "c1", title: "Electronics", slug: { current: "electronics" }, image: "https://picsum.photos/80/80", productCount: 20 },
-  { _id: "c2", title: "Laptops", slug: { current: "laptops" }, image: "https://picsum.photos/80/80", productCount: 5 },
-  { _id: "c3", title: "Headphones", slug: { current: "headphones" }, image: "https://picsum.photos/80/80", productCount: 15 },
-  { _id: "c4", title: "Furniture", slug: { current: "furniture" }, image: "https://picsum.photos/80/80", productCount: 8 },
-  { _id: "c5", title: "Appliances", slug: { current: "appliances" }, image: "https://picsum.photos/80/80", productCount: 12 },
+  { _id: "c1", title: "Electronics", slug: { current: "electronics" }, image: "https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=150&q=80", productCount: 20 },
+  { _id: "c2", title: "Laptops", slug: { current: "laptops" }, image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=150&q=80", productCount: 5 },
+  { _id: "c3", title: "Headphones", slug: { current: "headphones" }, image: "https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&w=150&q=80", productCount: 15 },
+  { _id: "c4", title: "Furniture", slug: { current: "furniture" }, image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=150&q=80", productCount: 8 },
+  { _id: "c5", title: "Appliances", slug: { current: "appliances" }, image: "https://images.unsplash.com/photo-1583173740067-fb3834c88cdb?auto=format&fit=crop&w=150&q=80", productCount: 12 },
 ];
 
 const DUMMY_BRANDS = [
