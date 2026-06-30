@@ -34,8 +34,10 @@ const CategoryProducts = ({ categories, slug }: Props) => {
       const data = await client.fetch(query, { categorySlug });
       setProducts(data);
     } catch (error) {
-      console.error("Error fetching products:", error);
-      setProducts([]);
+      console.error("Error fetching products, falling back to dummy products:", error);
+      const { getDealProducts } = await import("@/sanity/queries");
+      const fallback = await getDealProducts();
+      setProducts(fallback);
     } finally {
       setLoading(false);
     }
