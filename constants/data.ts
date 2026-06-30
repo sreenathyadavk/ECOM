@@ -6,12 +6,12 @@ export const headerData = [
   //   { title: "Contact", href: "/contact" },
 ];
 export const quickLinksData = [
-  { title: "About us", href: "/about" },
-  { title: "Contact us", href: "/contact" },
-  { title: "Terms & Conditions", href: "/terms" },
-  { title: "Privacy Policy", href: "/privacy" },
-  { title: "FAQs", href: "/faqs" },
-  { title: "Help", href: "/help" },
+  { title: "About us", href: "#" },
+  { title: "Contact us", href: "#" },
+  { title: "Terms & Conditions", href: "#" },
+  { title: "Privacy Policy", href: "#" },
+  { title: "FAQs", href: "#" },
+  { title: "Help", href: "#" },
 ];
 export const categoriesData = [
   { title: "Mobiles", href: "mobiles" },
