@@ -18,6 +18,7 @@ const Header = async () => {
   let user = null;
   let userId = null;
   let orders = null;
+  let shouldRunClerk = false;
 
   try {
     const headerList = await headers();
@@ -27,7 +28,7 @@ const Header = async () => {
     const isDevKey = pubKey.startsWith("pk_test");
     
     // Only run Clerk if we have a key AND it's not a development key on a public server
-    const shouldRunClerk = pubKey && !(isDevKey && !isLocalhost);
+    shouldRunClerk = !!(pubKey && !(isDevKey && !isLocalhost));
 
     if (shouldRunClerk) {
       user = await currentUser();
