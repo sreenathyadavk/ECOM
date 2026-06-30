@@ -14,9 +14,21 @@ import { Logs } from "lucide-react";
 import { getMyOrders } from "@/sanity/queries";
 
 const Header = async () => {
-  const user = await currentUser();
-  const { userId } = await auth();
+  let user = null;
+  let userId = null;
   let orders = null;
+
+  try {
+    const pubKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+    if (pubKey && pubKey !== "pk_test_c2VsZWN0ZWQtZ2xvd3dvcm0tNzIuY2xlcmsuYWNjb3VudHMuZGV2JA") {
+      user = await currentUser();
+      const authResult = await auth();
+      userId = authResult?.userId;
+    }
+  } catch (error) {
+    console.error("Clerk auth failed in Header:", error);
+  }
+
   if (userId) {
     orders = await getMyOrders(userId);
   }

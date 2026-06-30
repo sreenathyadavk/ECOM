@@ -12,7 +12,16 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 const OrdersPage = async () => {
-  const { userId } = await auth();
+  let userId = null;
+  try {
+    const pubKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+    if (pubKey && pubKey !== "pk_test_c2VsZWN0ZWQtZ2xvd3dvcm0tNzIuY2xlcmsuYWNjb3VudHMuZGV2JA") {
+      const authResult = await auth();
+      userId = authResult?.userId;
+    }
+  } catch (error) {
+    console.error("Clerk auth failed in Orders:", error);
+  }
   if (!userId) {
     return redirect("/");
   }
